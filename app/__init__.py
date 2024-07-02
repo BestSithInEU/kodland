@@ -7,7 +7,7 @@ from app.config import Config
 from app.models import Question, User, db
 from app.routes import init_routes
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates")
 app.config.from_object(Config)
 
 db.init_app(app)
