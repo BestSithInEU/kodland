@@ -1,6 +1,15 @@
 import re
 
-from flask import flash, jsonify, redirect, render_template, request, session, url_for
+from flask import (
+    flash,
+    jsonify,
+    make_response,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_login import UserMixin, current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -93,7 +102,9 @@ def init_routes(app, db, login_manager):
     def logout():
         logout_user()
         flash("Başarıyla çıkış yaptınız.")
-        return redirect(url_for("home"))
+        response = make_response(redirect(url_for("home")))
+        response.set_cookie("session", "", expires=0)
+        return response
 
     @app.route("/signup", methods=["GET", "POST"])
     def signup():
