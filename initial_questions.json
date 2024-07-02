@@ -1,0 +1,63 @@
+{
+  "questions": [
+    {
+      "content": "Python'da hangi kütüphane derin öğrenme için kullanılır?",
+      "topic": "Python'da AI geliştirme",
+      "answer": "TensorFlow",
+      "q_type": "multiple_choice",
+      "options": "NumPy;TensorFlow;Pandas;Matplotlib",
+      "points": 10
+    },
+    {
+      "content": "Python'da yapay sinir ağları oluşturmak için Keras kütüphanesi nasıl kullanılır?",
+      "topic": "Python'da AI geliştirme",
+      "answer": "Keras, yüksek seviyeli bir API sağlar ve TensorFlow üzerine kuruludur, model oluşturma sürecini basitleştirir.",
+      "q_type": "text",
+      "points": 15
+    },
+    {
+      "content": "Görüntü sınıflandırma için kullanılan popüler bir algoritma hangisidir?",
+      "topic": "Bilgisayar görüşü",
+      "answer": "CNN",
+      "q_type": "multiple_choice",
+      "options": "RNN;CNN;LSTM;GAN",
+      "points": 10
+    },
+    {
+      "content": "Bilgisayar görüşünde derin öğrenme modellerini eğitmek için hangi veri artırma teknikleri kullanılır?",
+      "topic": "Bilgisayar görüşü",
+      "answer": "Döndürme, ölçeklendirme, yatay çevirme, parlaklık ayarı",
+      "q_type": "text",
+      "points": 15
+    },
+    {
+      "content": "Doğal dil işlemede, kelimeleri vektörlere dönüştürmek için Word2Vec kullanılır.",
+      "topic": "NLP (Nöro-dilbilim)",
+      "answer": "True",
+      "q_type": "true_false",
+      "points": 5
+    },
+    {
+      "content": "Doğal dil işlemede duygu analizi yapmak için hangi Python kütüphanesi tercih edilir?",
+      "topic": "NLP (Nöro-dilbilim)",
+      "answer": "NLTK",
+      "q_type": "multiple_choice",
+      "options": "NLTK;TensorFlow;PyTorch;Keras",
+      "points": 10
+    },
+    {
+      "content": "Bir AI modelini Flask uygulamasına entegre etmek için ne yapılmalıdır?",
+      "topic": "Python uygulamalarında AI modelleri uygulama",
+      "answer": "Model bir endpoint üzerinden erişilebilir hale getirilmeli ve Flask route'undan çağrılmalıdır.",
+      "q_type": "text",
+      "points": 15
+    },
+    {
+      "content": "Flask ile oluşturulan bir web uygulamasında, kullanıcıdan alınan veriye göre dinamik olarak AI modeli nasıl güncellenir?",
+      "topic": "Python uygulamalarında AI modelleri uygulama",
+      "answer": "Kullanıcı verileri toplanır, model bu yeni verilerle yeniden eğitilir veya ayarlanır.",
+      "q_type": "text",
+      "points": 20
+    }
+  ]
+}

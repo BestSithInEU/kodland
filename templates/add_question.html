@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <title>Soru Ekle</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body onload="toggleOptionsVisibility()">
+    {% include 'navbar.html' %}
+    <div class="container">
+      <h1>Soru Ekle</h1>
+
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+      <form
+        method="post"
+        action="/add_question"
+        onsubmit="return validateForm()"
+        name="questionForm"
+      >
+        <div class="form-group">
+          <label for="content">Soru:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="content"
+            name="content"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="topic">Konu:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="topic"
+            name="topic"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="answer">Cevap:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="answer"
+            name="answer"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="q_type">Soru Tipi:</label>
+          <select
+            class="form-control"
+            id="q_type"
+            name="q_type"
+            onchange="toggleOptionsVisibility()"
+          >
+            <option value="multiple_choice">Çoktan Seçmeli</option>
+            <option value="true_false">Doğru/Yanlış</option>
+            <option value="text">Klasik</option>
+          </select>
+        </div>
+        <div class="form-group" id="optionsField" style="display: none">
+          <label for="options">Seçenekler:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="options"
+            name="options"
+            placeholder="Noktalı virgülle ayırarak giriniz"
+          />
+        </div>
+        <div class="form-group">
+          <label for="points">Puan:</label>
+          <input
+            type="number"
+            class="form-control"
+            id="points"
+            name="points"
+            value="10"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+      </form>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      function toggleOptionsVisibility() {
+        var qType = document.getElementById("q_type").value;
+        var optionsField = document.getElementById("optionsField");
+        if (qType === "multiple_choice") {
+          optionsField.style.display = "block";
+        } else {
+          optionsField.style.display = "none";
+        }
+      }
+
+      function validateForm() {
+        var content = document.forms["questionForm"]["content"].value;
+        var topic = document.forms["questionForm"]["topic"].value;
+        var answer = document.forms["questionForm"]["answer"].value;
+        var qType = document.forms["questionForm"]["q_type"].value;
+        var options = document.forms["questionForm"]["options"].value;
+        var points = document.forms["questionForm"]["points"].value;
+
+        if (content == "" || topic == "" || answer == "" || points == "") {
+          alert("Soru, Konu, Cevap ve Puan alanları zorunludur.");
+          return false;
+        }
+
+        if (qType == "multiple_choice" && options == "") {
+          alert("Çoktan seçmeli soru tipi için seçenekler girilmelidir.");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </body>
+</html>

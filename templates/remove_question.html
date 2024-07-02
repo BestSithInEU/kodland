@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Soru Çıkar</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="container">
+      <h2>Soru Çıkar</h2>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %} {% if questions %}
+      <form method="POST" action="{{ url_for('remove_question') }}">
+        <div class="form-group">
+          <label for="questionId">Soru Seç:</label>
+          <select class="form-control" id="questionId" name="questionId">
+            {% for question in questions %}
+            <option value="{{ question.id }}">{{ question.content }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-danger">Çıkar</button>
+      </form>
+      {% else %}
+      <p>Çıkarılacak Hiçbir Soru Yok.</p>
+      {% endif %}
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

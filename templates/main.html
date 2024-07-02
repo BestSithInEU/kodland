@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ana Sayfa</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    {% set current_page = 'main' %}
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    <div class="container">
+      {% if current_user and current_user.username %}
+      <h1>Hoş Geldin {{ current_user.username.capitalize() }}!</h1>
+      {% else %}
+      <h1>Hoş Geldin Misafir, Lütfen Giriş Yapınız ya da Kayıt Olunuz!</h1>
+      {% endif %}
+      <p>Navigasyon barını kullanarak çeşitli sayfalara erişebilirsiniz.</p>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="alerts">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+    </div>
+    {% include 'footer.html' %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

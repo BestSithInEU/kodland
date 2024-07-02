@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Quiz</title>
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+
+  <body>
+    {% set current_page = 'test' %} {% include 'navbar.html' %}
+
+    <div class="container">
+      <h2>Quiz</h2>
+
+      <form method="post" action="{{ url_for('test', page=page) }}">
+        {% for question in questions %}
+
+        <div>
+          <h2>{{ question.content }}</h2>
+
+          {% if question.q_type == 'multiple_choice' %}
+
+          <!-- Çoktan seçmeli sorular için radio butonları -->
+
+          {% for option in question.options.split(';') %} <input type="radio"
+          name="page_{{ page }}_answer_{{ question.id }}" value="{{ option }}"
+          {% if saved_answers.get('page_' ~ page ~ '_answer_' ~ question.id) ==
+          option %} checked {% endif %} /> {{ option }}<br />
+
+          {% endfor %} {% elif question.q_type == 'true_false' %}
+
+          <!-- Doğru/Yanlış sorular için radio butonları -->
+
+          <input type="radio" name="page_{{ page }}_answer_{{ question.id }}"
+          value="True" {% if saved_answers.get('page_' ~ page ~ '_answer_' ~
+          question.id) == 'True' %} checked {% endif %} /> Doğru<br />
+
+          <input type="radio" name="page_{{ page }}_answer_{{ question.id }}"
+          value="False" {% if saved_answers.get('page_' ~ page ~ '_answer_' ~
+          question.id) == 'False' %} checked {% endif %} /> Yanlış<br />
+
+          {% else %}
+
+          <!-- Klasik sorular için metin kutusu -->
+
+          <input
+            type="text"
+            name="page_{{ page }}_answer_{{ question.id }}"
+            value="{{ saved_answers.get('page_' ~ page ~ '_answer_' ~ question.id) }}"
+          />
+
+          {% endif %}
+        </div>
+
+        {% endfor %}
+
+        <input type="hidden" name="page" value="{{ page }}" />
+        {% if is_last_page %}
+        <input
+          type="submit"
+          name="submit_all"
+          value="Tüm Cevapları Gönder"
+          class="btn btn-primary"
+        />
+        {% else %}
+        <input type="submit" value="Sonraki Sayfa" class="btn btn-primary" />
+        {% endif %}
+      </form>
+    </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const inputs = document.querySelectorAll(
+          "input[type=radio], input[type=text]"
+        );
+
+        // Load saved answers from sessionStorage
+        inputs.forEach((input) => {
+          const savedValue = sessionStorage.getItem(input.name);
+          if (input.type === "radio" && input.value === savedValue) {
+            input.checked = true;
+          } else if (input.type === "text") {
+            input.value = savedValue || "";
+          }
+        });
+
+        // Save answers to sessionStorage on input change
+        inputs.forEach((input) => {
+          input.addEventListener("change", () => {
+            sessionStorage.setItem(input.name, input.value);
+          });
+        });
+
+        // Save answers to sessionStorage before form submission
+        form.addEventListener("submit", () => {
+          inputs.forEach((input) => {
+            if (input.type === "radio" && input.checked) {
+              sessionStorage.setItem(input.name, input.value);
+            } else if (input.type === "text") {
+              sessionStorage.setItem(input.name, input.value);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
