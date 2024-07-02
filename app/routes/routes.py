@@ -231,4 +231,9 @@ def init_routes(app, db, login_manager):
         for page in range(1, total_pages + 1):
             session.pop(f"page_{page}_answers", None)
 
-        return render_template("results.html", score=score, top_scores=top_scores)
+        return render_template(
+            "results.html",
+            score=score,
+            top_scores=top_scores,
+            current_user=current_user,
+        )
